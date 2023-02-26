@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Bump version and create/update tag
-        uses: JasonEtco/create-or-update-version-tag@v1
+        uses: JasonEtco/build-and-tag-action@v2.0.1
         with:
           version: major
           default_bump: minor
