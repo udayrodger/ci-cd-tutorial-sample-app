@@ -17,7 +17,8 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: ${{ secrets.JENKINS }}
-          prerelease: false
           automatic_release_tag: true
+          prerelease: false
+          
 
           
