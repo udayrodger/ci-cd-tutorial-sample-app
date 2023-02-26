@@ -18,6 +18,6 @@ jobs:
         with:
           repo_token: ${{ secrets.JENKINS }}
           prerelease: false
-          automatic_release_tag: "dev"
+          automatic_release_tag: true
 
           
