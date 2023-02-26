@@ -1,26 +1,20 @@
-name: Tag on Merge
+name: Auto-tag on merge to master
+
 on:
   push:
     branches:
       - master
+
 jobs:
-  tag:
+  auto-tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Increment version number
-        id: semver
-        uses: juliangruber/semver-action@v1
+      - uses: actions/checkout@v2
+      - name: Bump version and create/update tag
+        uses: JasonEtco/create-or-update-version-tag@v1
         with:
-          version: ${{ env.VERSION }}
-          bump: patch
-      
-      - name: Create tag
-        run: |
-          git tag -a v${{ steps.semver.outputs.version }} -m "Tagging release v${{ steps.semver.outputs.version }}"
-      
-      - name: Push tag
-        run: |
-          git push origin v${{ steps.semver.outputs.version }}
+          version: major
+          default_bump: minor
+          push: true
+          push_tag: true
+          message: "Bump version to {{version}}"
