@@ -19,3 +19,5 @@ jobs:
           files: ''
           body: ''
           automatic_release_tag: true
+          tag_name: v${{ steps.get_version.outputs.version }}
+
