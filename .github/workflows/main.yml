@@ -20,4 +20,7 @@ jobs:
           body: ''
           automatic_release_tag: true
           tag_name: v${{ steps.get_version.outputs.version }}
+      - name: Get version
+        id: get_version
+        run: echo "::set-output name=version::1.0.0"
 
