@@ -3,7 +3,8 @@ name: tagged release
 on:
   push:
     tags:
-      - "*"
+      - "v*"
+
 jobs:
   tagged-release:
     name: "Tagged Release"
@@ -13,6 +14,10 @@ jobs:
       - name: "Build & test"
         run: |
           echo "done!"
+          
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        
       - name: "Check if tag event"
         id: tag_check
         run: |
@@ -28,10 +33,19 @@ jobs:
             echo "No GITHUB_REF found"
             echo "::set-output name=is_tag_event::false"
           fi
+          
+      - name: "Set version"
+        id: set_version
+        run: |
+          echo "Getting version"
+          version=$(git describe --abbrev=0 --tags)
+          echo "::set-output name=version::$version"
+
       - name: "Automatic Release"
         if: ${{ steps.tag_check.outputs.is_tag_event == 'true' }}
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: ${{ secrets.JENKINS }}
-          automatic_release_tag: "latest"
+          tag: ${{ steps.set_version.outputs.version }}
+          automatic_release_tag: true
           prerelease: false
