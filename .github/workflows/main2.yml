@@ -17,10 +17,5 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.JENKINS }}
-          prerelease: true
+          prerelease: false
           
-
-      - name: Get version
-        id: get_version
-        run: echo "::set-output name=version::1.0.0"
-
